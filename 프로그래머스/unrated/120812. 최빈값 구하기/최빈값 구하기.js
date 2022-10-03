@@ -1,10 +1,17 @@
 function solution(array) {
- 
-    let setArr = [...new Set(array)];
+    const freq = {};
+
+    for (const n of array) {
+        
+        freq[n] = (freq[n] || 0) + 1;
+    }
+   
+
+    const keys = Object.keys(freq);
     
-    let calArr = setArr.map((v,i) => array.filter(dv => dv == v).length);
-    
-    let rsltArr = calArr.map((mv,mi) => { if(mv == Math.max(...calArr)) return mi; return -1}).filter(v => v != -1)
-    
-    return rsltArr.length > 1 ? -1 : setArr[rsltArr[0]];
+    keys.sort((a,b) => freq[b] - freq[a]);
+
+    const max = keys[0];
+
+    return freq[keys[0]] === freq[keys[1]] ? -1 : +max;
 }
